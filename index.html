@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="nl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>FlipCompas</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="container">
+
+        <div class="logo">
+            🏠
+        </div>
+
+        <h1>FlipCompas</h1>
+
+        <p class="subtitle">
+            Bereken eenvoudig of een woning financieel interessant is.
+        </p>
+
+        <label for="minWinst">Minimale gewenste winst (€)</label>
+        <input
+            type="number"
+            id="minWinst"
+            value="15000"
+            min="0"
+        >
+
+        <label for="aankoop">Aankoopprijs (€)</label>
+        <input
+            type="number"
+            id="aankoop"
+            placeholder="Bijv. 175000"
+            min="0"
+        >
+
+        <label for="verbouw">Verbouwkosten (€)</label>
+        <input
+            type="number"
+            id="verbouw"
+            placeholder="Bijv. 35000"
+            min="0"
+        >
+
+        <label for="verkoop">Verwachte verkoopprijs (€)</label>
+        <input
+            type="number"
+            id="verkoop"
+            placeholder="Bijv. 265000"
+            min="0"
+        >
+
+        <button type="button" onclick="bereken()">
+            📈 Bereken deal
+        </button>
+
+        <div id="resultaat">
+            Vul de gegevens in en bereken je deal.
+        </div>
+
+        <div class="dashboard">
+
+            <div class="kaart">
+                <h3>💰 Totale investering</h3>
+                <p id="investering">€ 0</p>
+            </div>
+
+            <div class="kaart">
+                <h3>📈 Verwachte winst</h3>
+                <p id="winstKaart">€ 0</p>
+            </div>
+
+            <div class="kaart">
+                <h3>⭐ FlipScore</h3>
+                <p id="flipscore">0 / 100</p>
+            </div>
+
+        </div>
+
+    </div>
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
