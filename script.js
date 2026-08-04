@@ -1,9 +1,24 @@
+// Zet Nederlandse bedragen om naar echte getallen.
+// Zowel 175000 als 175.000 wordt 175000.
+function leesBedrag(id) {
+    let waarde = document.getElementById(id).value.trim();
+
+    // Verwijder eurotekens, spaties en punten (duizendtallen)
+    waarde = waarde
+        .replace(/€/g, "")
+        .replace(/\s/g, "")
+        .replace(/\./g, "")
+        .replace(",", ".");
+
+    return Number(waarde);
+}
+
 function bereken() {
 
-    const minWinst = Number(document.getElementById("minWinst").value);
-    const aankoop = Number(document.getElementById("aankoop").value);
-    const verbouw = Number(document.getElementById("verbouw").value);
-    const verkoop = Number(document.getElementById("verkoop").value);
+    const minWinst = leesBedrag("minWinst");
+    const aankoop = leesBedrag("aankoop");
+    const verbouw = leesBedrag("verbouw");
+    const verkoop = leesBedrag("verkoop");
 
     const resultaat = document.getElementById("resultaat");
     const investeringElement = document.getElementById("investering");
@@ -13,6 +28,10 @@ function bereken() {
 
     // Controleer of de bedragen correct zijn ingevuld
     if (
+        !Number.isFinite(aankoop) ||
+        !Number.isFinite(verbouw) ||
+        !Number.isFinite(verkoop) ||
+        !Number.isFinite(minWinst) ||
         aankoop <= 0 ||
         verbouw < 0 ||
         verkoop <= 0 ||
