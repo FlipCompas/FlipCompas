@@ -19,7 +19,7 @@ function bereken() {
     const aankoop = leesBedrag("aankoop");
     const verbouw = leesBedrag("verbouw");
     const verkoop = leesBedrag("verkoop");
-
+const overdracht = leesBedrag("overdracht");
     const resultaat = document.getElementById("resultaat");
     const investeringElement = document.getElementById("investering");
     const winstElement = document.getElementById("winstKaart");
