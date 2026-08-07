@@ -55,7 +55,8 @@ const overdracht = leesBedrag("overdracht");
     }
 
     // Berekeningen
-    const investering = aankoop + verbouw;
+    const overdrachtsbelasting = aankoop * (overdracht / 100);
+const investering = aankoop + verbouw + overdrachtsbelasting;
     const winst = verkoop - investering;
 
     // Dashboard bijwerken
