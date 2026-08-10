@@ -1,10 +1,10 @@
 // ==========================================
-// FLIPCOMPAS - COMPLETE BEREKENING
+// FLIPCOMPAS - BEREKENINGEN
 // ==========================================
 
 
 // ==========================================
-// HULPFUNCTIES
+// BEDRAG UITLEZEN
 // ==========================================
 
 function leesBedrag(id) {
@@ -31,9 +31,14 @@ function leesBedrag(id) {
 }
 
 
+// ==========================================
+// EURO WEERGAVE
+// ==========================================
+
 function euro(bedrag) {
 
-    return "€ " + Math.round(bedrag).toLocaleString("nl-NL");
+    return "€ " + Math.round(bedrag)
+        .toLocaleString("nl-NL");
 
 }
 
@@ -44,31 +49,49 @@ function euro(bedrag) {
 
 function bereken() {
 
+
     // --------------------------------------
     // INPUTS
     // --------------------------------------
 
-    const aankoop = leesBedrag("aankoop");
-    const overdracht = leesBedrag("overdracht");
-    const notaris = leesBedrag("notaris");
+    const aankoop =
+        leesBedrag("aankoop");
 
-    const verbouw = leesBedrag("verbouw");
-    const onvoorzien = leesBedrag("onvoorzien");
+    const overdracht =
+        leesBedrag("overdracht");
 
-    const verkoop = leesBedrag("verkoop");
-    const makelaar = leesBedrag("makelaar");
-    const verkoopOverig = leesBedrag("verkoopOverig");
+    const notaris =
+        leesBedrag("notaris");
+
+    const verbouw =
+        leesBedrag("verbouw");
+
+    const onvoorzien =
+        leesBedrag("onvoorzien");
+
+    const verkoop =
+        leesBedrag("verkoop");
+
+    const makelaar =
+        leesBedrag("makelaar");
+
+    const verkoopOverig =
+        leesBedrag("verkoopOverig");
 
     const financieringsPercentage =
-        leesBedrag("financieringPercentage");
+        leesBedrag("financieringsPercentage");
 
     const maximaleHypotheek =
         leesBedrag("hypotheek");
 
-    const rente = leesBedrag("rente");
-    const looptijd = leesBedrag("looptijd");
+    const rente =
+        leesBedrag("rente");
 
-    const minWinst = leesBedrag("minWinst");
+    const looptijd =
+        leesBedrag("looptijd");
+
+    const minWinst =
+        leesBedrag("minWinst");
 
 
     // --------------------------------------
@@ -116,45 +139,23 @@ function bereken() {
 
 
     // ======================================
-    // BASISCONTROLE
-    // ======================================
-
-    if (
-        aankoop <= 0 ||
-        verbouw < 0 ||
-        verkoop <= 0 ||
-        financieringsPercentage < 0 ||
-        financieringsPercentage > 100 ||
-        maximaleHypotheek < 0 ||
-        rente < 0 ||
-        looptijd <= 0
-    ) {
-
-        resultaat.innerHTML =
-            "⚠️ <strong>Vul de gegevens correct in.</strong>";
-
-        return;
-    }
-
-
-    // ======================================
-    // AANKOOPKOSTEN
+    // KOSTEN
     // ======================================
 
     const overdrachtsbelasting =
         aankoop * (overdracht / 100);
 
 
-    // ======================================
-    // ONVOORZIENE KOSTEN
-    // ======================================
-
     const onvoorzienKosten =
         verbouw * (onvoorzien / 100);
 
 
+    const makelaarsKosten =
+        verkoop * (makelaar / 100);
+
+
     // ======================================
-    // TOTALE INVESTERING
+    // INVESTERING ZONDER FINANCIERING
     // ======================================
 
     const totaleInvestering =
@@ -162,23 +163,11 @@ function bereken() {
         overdrachtsbelasting +
         notaris +
         verbouw +
-        onvoorzienKosten;
+        onvoorzien;
 
 
     // ======================================
-    // VERKOOPKOSTEN
-    // ======================================
-
-    const makelaarsKosten =
-        verkoop * (makelaar / 100);
-
-    const totaleVerkoopkosten =
-        makelaarsKosten +
-        verkoopOverig;
-
-
-    // ======================================
-    // GEWENSTE FINANCIERING
+    // GEWENSTE LENING
     // ======================================
 
     let gewensteLening =
@@ -186,8 +175,9 @@ function bereken() {
         (financieringsPercentage / 100);
 
 
-    // De werkelijke lening mag nooit hoger
-    // zijn dan de maximale hypotheek/lening.
+    // ======================================
+    // MAXIMALE LENING
+    // ======================================
 
     let werkelijkeLening =
         Math.min(
@@ -196,8 +186,7 @@ function bereken() {
         );
 
 
-    // Een lening kan nooit negatief zijn.
-
+    // Negatieve waarden voorkomen
     if (werkelijkeLening < 0) {
         werkelijkeLening = 0;
     }
@@ -211,6 +200,15 @@ function bereken() {
         werkelijkeLening *
         (rente / 100) *
         (looptijd / 12);
+
+
+    // ======================================
+    // VERKOOPKOSTEN
+    // ======================================
+
+    const totaleVerkoopkosten =
+        makelaarsKosten +
+        verkoopOverig;
 
 
     // ======================================
@@ -276,7 +274,7 @@ function bereken() {
 
 
     // ======================================
-    // BEDRAGEN BIJ INPUTS
+    // BEDRAGEN IN FORMULIER
     // ======================================
 
     if (overdrachtBedragElement) {
@@ -372,91 +370,134 @@ function bereken() {
     // ======================================
     // FLIPSCORE
     // ======================================
-    //
-    // De score kijkt nu naar:
-    //
-    // 1. Winst
-    // 2. Rendement op eigen geld
-    // 3. Risico van financiering
-    //
-    // Daardoor is 10% financiering niet
-    // simpelweg het omgekeerde van 90%.
-    // Meer financiering betekent:
-    // - minder eigen geld nodig
-    // - hogere rente
-    // - hoger financieel risico
-    //
-    // ======================================
 
     let score = 0;
 
 
     // --------------------------------------
-    // 1. WINST: maximaal 50 punten
-    // --------------------------------------
-
-    if (winst > 0) {
-
-        const winstFactor =
-            Math.min(
-                winst / Math.max(minWinst, 1),
-                2
-            );
-
-        score += winstFactor * 25;
-
-    }
-
-
-    // --------------------------------------
-    // 2. RENDEMENT: maximaal 30 punten
-    // --------------------------------------
-
-    if (rendement > 0) {
-
-        const rendementFactor =
-            Math.min(
-                rendement / 30,
-                1
-            );
-
-        score += rendementFactor * 30;
-
-    }
-
-
-    // --------------------------------------
-    // 3. FINANCIERINGSRISICO: maximaal 20
-    // --------------------------------------
-
-    const risicoScore =
-        20 -
-        (financieringsPercentage * 0.20);
-
-    score += Math.max(risicoScore, 0);
-
-
-    // --------------------------------------
-    // NEGATIEVE WINST
+    // 1. WINST
     // --------------------------------------
 
     if (winst <= 0) {
 
-        score = 20;
+        score = 10;
+
+    }
+
+    else if (winst < minWinst) {
+
+        score = 45;
+
+    }
+
+    else if (winst < minWinst * 1.5) {
+
+        score = 65;
+
+    }
+
+    else if (winst < minWinst * 2) {
+
+        score = 80;
+
+    }
+
+    else {
+
+        score = 90;
 
     }
 
 
     // --------------------------------------
-    // AFRONDEN
+    // 2. RENDEMENT
+    // --------------------------------------
+
+    if (rendement >= 50) {
+
+        score += 8;
+
+    }
+
+    else if (rendement >= 35) {
+
+        score += 6;
+
+    }
+
+    else if (rendement >= 25) {
+
+        score += 4;
+
+    }
+
+    else if (rendement >= 15) {
+
+        score += 2;
+
+    }
+
+
+    // --------------------------------------
+    // 3. FINANCIERINGSRISICO
+    // --------------------------------------
+
+    // Veel financiering betekent minder eigen geld,
+    // maar ook meer risico.
+
+    if (financieringsPercentage <= 30) {
+
+        score += 2;
+
+    }
+
+    else if (financieringsPercentage <= 50) {
+
+        score += 3;
+
+    }
+
+    else if (financieringsPercentage <= 70) {
+
+        score += 2;
+
+    }
+
+    else if (financieringsPercentage <= 85) {
+
+        score += 0;
+
+    }
+
+    else {
+
+        score -= 5;
+
+    }
+
+
+    // --------------------------------------
+    // 4. LENINGSPROBLEEM
+    // --------------------------------------
+
+    if (
+        gewensteLening > maximaleHypotheek &&
+        maximaleHypotheek > 0
+    ) {
+
+        score -= 10;
+
+    }
+
+
+    // --------------------------------------
+    // SCORE BEGRENZEN
     // --------------------------------------
 
     score =
-        Math.round(
-            Math.max(
-                0,
-                Math.min(score, 100)
-            )
+        Math.max(
+            0,
+            Math.min(100, Math.round(score))
         );
 
 
@@ -469,13 +510,15 @@ function bereken() {
 
 
     // ======================================
-    // RESULTAATTEKST
+    // RESULTAAT
     // ======================================
 
     if (winst < 0) {
 
+
         knop.style.background =
             "#d62828";
+
 
         resultaat.style.background =
             "#ffe9e9";
@@ -485,6 +528,7 @@ function bereken() {
 
         resultaat.style.color =
             "#d62828";
+
 
         resultaat.innerHTML =
             "🚨 <strong>GEEN GOEDE DEAL</strong><br><br>" +
@@ -496,10 +540,13 @@ function bereken() {
 
     }
 
+
     else if (winst < minWinst) {
+
 
         knop.style.background =
             "#f4a261";
+
 
         resultaat.style.background =
             "#fff5e6";
@@ -509,6 +556,7 @@ function bereken() {
 
         resultaat.style.color =
             "#c97a00";
+
 
         resultaat.innerHTML =
             "⚠️ <strong>LAGE WINSTMARGE</strong><br><br>" +
@@ -522,10 +570,13 @@ function bereken() {
 
     }
 
+
     else {
+
 
         knop.style.background =
             "#1b8d43";
+
 
         resultaat.style.background =
             "#e8f9ee";
@@ -535,6 +586,7 @@ function bereken() {
 
         resultaat.style.color =
             "#1b8d43";
+
 
         resultaat.innerHTML =
             "✅ <strong>GOEDE DEAL</strong><br><br>" +
@@ -549,57 +601,45 @@ function bereken() {
 
 
     // ======================================
-    // KLEUREN DASHBOARD
+    // KLEUR DASHBOARD
     // ======================================
+
+    let dashboardKleur;
+
 
     if (winst < 0) {
 
-        winstElement.style.color =
-            "#d62828";
-
-        rendementElement.style.color =
-            "#d62828";
-
-        winstPerMaandElement.style.color =
-            "#d62828";
-
-        scoreElement.style.color =
+        dashboardKleur =
             "#d62828";
 
     }
 
     else if (winst < minWinst) {
 
-        winstElement.style.color =
-            "#c97a00";
-
-        rendementElement.style.color =
-            "#c97a00";
-
-        winstPerMaandElement.style.color =
-            "#c97a00";
-
-        scoreElement.style.color =
+        dashboardKleur =
             "#c97a00";
 
     }
 
     else {
 
-        winstElement.style.color =
-            "#1b8d43";
-
-        rendementElement.style.color =
-            "#1b8d43";
-
-        winstPerMaandElement.style.color =
-            "#1b8d43";
-
-        scoreElement.style.color =
+        dashboardKleur =
             "#1b8d43";
 
     }
 
+
+    winstElement.style.color =
+        dashboardKleur;
+
+    rendementElement.style.color =
+        dashboardKleur;
+
+    winstPerMaandElement.style.color =
+        dashboardKleur;
+
+    scoreElement.style.color =
+        dashboardKleur;
 }
 
 
@@ -614,11 +654,12 @@ document.addEventListener(
         const velden =
             document.querySelectorAll("input");
 
+
         velden.forEach(
             function (veld) {
 
                 veld.addEventListener(
-                    "change",
+                    "input",
                     function () {
 
                         bereken();
@@ -629,7 +670,7 @@ document.addEventListener(
             }
         );
 
-        // Eerste berekening
+
         bereken();
 
     }
