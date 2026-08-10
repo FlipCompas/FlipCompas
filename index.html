@@ -9,7 +9,7 @@
 
     <meta
         name="description"
-        content="Bereken aankoopkosten, verbouwkosten, financiering, eigen inleg, winst en rendement van een woningflip met FlipCompas."
+        content="Bereken eenvoudig of een woning financieel interessant is om te verbouwen en door te verkopen."
     >
 
     <meta name="robots" content="index, follow">
@@ -28,10 +28,12 @@
 
 <div class="container">
 
+    <!-- LOGO -->
     <div class="logo">
         🏠
     </div>
 
+    <!-- TITEL -->
     <h1>FlipCompas</h1>
 
     <p class="subtitle">
@@ -52,7 +54,7 @@
     <input
         type="number"
         id="aankoop"
-        placeholder="Bijv. 175000"
+        value="175000"
         min="0"
         step="100"
     >
@@ -98,7 +100,7 @@
     <input
         type="number"
         id="verbouw"
-        placeholder="Bijv. 35000"
+        value="35000"
         min="0"
         step="100"
     >
@@ -131,7 +133,7 @@
     <input
         type="number"
         id="verkoop"
-        placeholder="Bijv. 265000"
+        value="265000"
         min="0"
         step="100"
     >
@@ -170,6 +172,7 @@
 
     <h2>🏦 Financiering</h2>
 
+
     <label for="financieringsPercentage">
         Financiering van totale investering (%)
     </label>
@@ -183,20 +186,20 @@
         step="1"
     >
 
-    <p class="uitleg">
+    <p>
         Bijvoorbeeld 70% betekent dat 70% van de totale investering
         wordt gefinancierd.
     </p>
 
 
-    <label for="maxHypotheek">
+    <label for="hypotheek">
         Maximale hypotheek / lening (€)
     </label>
 
     <input
         type="number"
-        id="maxHypotheek"
-        placeholder="Bijv. 200000"
+        id="hypotheek"
+        value="150000"
         min="0"
         step="1000"
     >
@@ -230,7 +233,7 @@
 
 
     <!-- =========================
-         DOEL
+         JOUW DOEL
     ========================== -->
 
     <h2>🎯 Jouw doel</h2>
@@ -252,10 +255,17 @@
          BEREKENEN
     ========================== -->
 
-    <button type="button" onclick="bereken()">
+    <button
+        type="button"
+        onclick="bereken()"
+    >
         📈 Bereken mijn flip
     </button>
 
+
+    <!-- =========================
+         RESULTAAT
+    ========================== -->
 
     <div id="resultaat">
         Vul de gegevens in en bereken je deal.
@@ -268,52 +278,94 @@
 
     <div class="dashboard">
 
+
         <div class="kaart">
+
             <h3>💰 Totale investering</h3>
-            <p id="investering">€ 0</p>
+
+            <p id="investering">
+                € 0
+            </p>
+
         </div>
 
 
         <div class="kaart">
+
             <h3>🏦 Werkelijke lening</h3>
-            <p id="werkelijkeLening">€ 0</p>
+
+            <p id="werkelijkeLening">
+                € 0
+            </p>
+
         </div>
 
 
         <div class="kaart">
+
             <h3>💵 Eigen geld nodig</h3>
-            <p id="eigenGeld">€ 0</p>
+
+            <p id="eigenGeld">
+                € 0
+            </p>
+
         </div>
 
 
         <div class="kaart">
+
             <h3>💸 Financieringskosten</h3>
-            <p id="financieringsKosten">€ 0</p>
+
+            <p id="financieringsKosten">
+                € 0
+            </p>
+
         </div>
 
 
         <div class="kaart">
+
             <h3>📈 Netto projectwinst</h3>
-            <p id="winstKaart">€ 0</p>
+
+            <p id="winstKaart">
+                € 0
+            </p>
+
         </div>
 
 
         <div class="kaart">
+
             <h3>📊 Rendement eigen geld</h3>
-            <p id="rendement">0%</p>
+
+            <p id="rendement">
+                0%
+            </p>
+
         </div>
 
 
         <div class="kaart">
+
             <h3>📅 Winst per maand</h3>
-            <p id="winstPerMaand">€ 0</p>
+
+            <p id="winstPerMaand">
+                € 0
+            </p>
+
         </div>
 
 
         <div class="kaart">
+
             <h3>⭐ FlipScore</h3>
-            <p id="flipscore">0 / 100</p>
+
+            <p id="flipscore">
+                0 / 100
+            </p>
+
         </div>
+
 
     </div>
 
