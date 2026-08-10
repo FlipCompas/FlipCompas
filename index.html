@@ -9,7 +9,7 @@
 
     <meta
         name="description"
-        content="Bereken eenvoudig of een woning financieel interessant is om te verbouwen en door te verkopen."
+        content="Bereken aankoopkosten, verbouwkosten, financiering, eigen inleg, winst en rendement van een woningflip met FlipCompas."
     >
 
     <meta name="robots" content="index, follow">
@@ -28,12 +28,10 @@
 
 <div class="container">
 
-    <!-- LOGO -->
     <div class="logo">
         🏠
     </div>
 
-    <!-- TITEL -->
     <h1>FlipCompas</h1>
 
     <p class="subtitle">
@@ -42,7 +40,7 @@
 
 
     <!-- =========================
-         BASISGEGEVENS
+         WONING
     ========================== -->
 
     <h2>🏠 Woning</h2>
@@ -172,21 +170,40 @@
 
     <h2>🏦 Financiering</h2>
 
-    <label for="hypotheek">
+    <label for="financieringsPercentage">
+        Financiering van totale investering (%)
+    </label>
+
+    <input
+        type="number"
+        id="financieringsPercentage"
+        value="70"
+        min="0"
+        max="100"
+        step="1"
+    >
+
+    <p class="uitleg">
+        Bijvoorbeeld 70% betekent dat 70% van de totale investering
+        wordt gefinancierd.
+    </p>
+
+
+    <label for="maxHypotheek">
         Maximale hypotheek / lening (€)
     </label>
 
     <input
         type="number"
-        id="hypotheek"
-        placeholder="Bijv. 150000"
+        id="maxHypotheek"
+        placeholder="Bijv. 200000"
         min="0"
         step="1000"
     >
 
 
     <label for="rente">
-        Rente (%)
+        Rente (% per jaar)
         <span id="renteBedrag">→ € 0</span>
     </label>
 
@@ -213,7 +230,7 @@
 
 
     <!-- =========================
-         MINIMALE WINST
+         DOEL
     ========================== -->
 
     <h2>🎯 Jouw doel</h2>
@@ -240,8 +257,6 @@
     </button>
 
 
-    <!-- RESULTAAT -->
-
     <div id="resultaat">
         Vul de gegevens in en bereken je deal.
     </div>
@@ -260,14 +275,20 @@
 
 
         <div class="kaart">
-            <h3>🏦 Financieringskosten</h3>
-            <p id="financieringsKosten">€ 0</p>
+            <h3>🏦 Werkelijke lening</h3>
+            <p id="werkelijkeLening">€ 0</p>
         </div>
 
 
         <div class="kaart">
             <h3>💵 Eigen geld nodig</h3>
             <p id="eigenGeld">€ 0</p>
+        </div>
+
+
+        <div class="kaart">
+            <h3>💸 Financieringskosten</h3>
+            <p id="financieringsKosten">€ 0</p>
         </div>
 
 
