@@ -5,7 +5,45 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>FlipCompas</title>
+    <title>FlipCompas – Woning Flip Calculator</title>
+
+    <meta
+        name="description"
+        content="Bereken eenvoudig of een woning interessant is om te flippen. Bereken aankoopprijs, verbouwingskosten, verkoopprijs en verwachte winst met FlipCompas."
+    >
+
+    <meta name="robots" content="index, follow">
+
+    <link
+        rel="canonical"
+        href="https://flipcompas.github.io/FlipCompas/"
+    >
+
+    <meta name="theme-color" content="#ffffff">
+
+    <meta property="og:title" content="FlipCompas – Woning Flip Calculator">
+    <meta
+        property="og:description"
+        content="Bereken eenvoudig de verwachte investering, winst en FlipScore van een woning."
+    >
+    <meta
+        property="og:url"
+        content="https://flipcompas.github.io/FlipCompas/"
+    >
+    <meta property="og:type" content="website">
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "FlipCompas",
+        "url": "https://flipcompas.github.io/FlipCompas/",
+        "description": "Online calculator voor het berekenen van de investering, verwachte winst en FlipScore van een woning.",
+        "applicationCategory": "FinanceApplication",
+        "operatingSystem": "Web",
+        "inLanguage": "nl"
+    }
+    </script>
 
     <link rel="stylesheet" href="style.css">
 </head>
@@ -55,15 +93,17 @@
             placeholder="Bijv. 265000"
             min="0"
         >
-<label for="overdracht">Overdrachtsbelasting (%)</label>
 
-<input
-    type="number"
-    id="overdracht"
-    value="2"
-    min="0"
-    step="0.1"
->
+        <label for="overdracht">Overdrachtsbelasting (%)</label>
+
+        <input
+            type="number"
+            id="overdracht"
+            value="2"
+            min="0"
+            step="0.1"
+        >
+
         <button type="button" onclick="bereken()">
             📈 Bereken deal
         </button>
