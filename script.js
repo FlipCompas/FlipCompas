@@ -4,7 +4,7 @@
 
 
 // ==========================================
-// NEDERLANDSE BEDRAGEN UITLEZEN
+// BEDRAGEN / GETALLEN UITLEZEN
 // ==========================================
 
 function leesBedrag(id) {
@@ -19,11 +19,12 @@ function leesBedrag(id) {
         .toString()
         .trim();
 
-    waarde = waarde
-        .replace(/€/g, "")
-        .replace(/\s/g, "")
-        .replace(/\./g, "")
-        .replace(",", ".");
+    if (waarde === "") {
+        return 0;
+    }
+
+    // Nederlandse komma ondersteunen
+    waarde = waarde.replace(",", ".");
 
     const getal = Number(waarde);
 
@@ -78,7 +79,8 @@ function bereken() {
         leesBedrag("verkoopOverig");
 
 
-    // NIEUWE FINANCIERING
+    // FINANCIERING
+
     const financieringsPercentage =
         leesBedrag("financieringsPercentage");
 
@@ -91,6 +93,8 @@ function bereken() {
     const looptijd =
         leesBedrag("looptijd");
 
+
+    // DOEL
 
     const minWinst =
         leesBedrag("minWinst");
@@ -183,16 +187,10 @@ function bereken() {
     // WERKELIJKE LENING
     // ======================================
 
-    // Eerst berekenen hoeveel procent van
-    // de totale investering gefinancierd wordt.
-
     const gewensteLening =
         totaleInvestering *
         (financieringsPercentage / 100);
 
-
-    // De lening mag nooit hoger zijn dan
-    // de maximale hypotheek / lening.
 
     let werkelijkeLening =
         Math.min(
@@ -200,8 +198,6 @@ function bereken() {
             maximaleHypotheek
         );
 
-
-    // Een negatieve lening kan natuurlijk niet.
 
     if (werkelijkeLening < 0) {
         werkelijkeLening = 0;
@@ -211,8 +207,6 @@ function bereken() {
     // ======================================
     // FINANCIERINGSKOSTEN
     // ======================================
-
-    // Rente over de werkelijke lening.
 
     const financieringsKosten =
         werkelijkeLening *
@@ -264,7 +258,7 @@ function bereken() {
 
 
     // ======================================
-    // RENDEMENT
+    // RENDEMENT EIGEN GELD
     // ======================================
 
     let rendement = 0;
@@ -323,6 +317,33 @@ function bereken() {
 
         renteBedragElement.innerHTML =
             "→ " + euro(financieringsKosten);
+
+    }
+
+
+    // ======================================
+    // DYNAMISCHE FINANCIERINGSTEKST
+    // ======================================
+
+    const financieringsInput =
+        document.getElementById("financieringsPercentage");
+
+    if (financieringsInput) {
+
+        let uitleg =
+            financieringsInput.parentElement
+                .nextElementSibling;
+
+        if (uitleg) {
+
+            uitleg.innerHTML =
+                "Bijvoorbeeld " +
+                financieringsPercentage +
+                "% betekent dat " +
+                financieringsPercentage +
+                "% van de totale investering wordt gefinancierd.";
+
+        }
 
     }
 
@@ -419,7 +440,7 @@ function bereken() {
     }
 
 
-    // Extra punten voor rendement
+    // Extra punten rendement
 
     if (rendement >= 30 && winst > 0) {
 
@@ -643,10 +664,9 @@ document.addEventListener(
         );
 
 
-        // Meteen bij openen berekenen
+        // Meteen berekenen bij openen
 
         bereken();
-
 
     }
 );
