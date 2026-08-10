@@ -5,135 +5,388 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>FlipCompas – Woning Flip Calculator</title>
+    <title>FlipCompas - Woning Flip Calculator</title>
 
     <meta
         name="description"
-        content="Bereken eenvoudig of een woning interessant is om te flippen. Bereken aankoopprijs, verbouwingskosten, verkoopprijs en verwachte winst met FlipCompas."
+        content="Bereken de verwachte winst, kosten en het rendement van een woningflip met FlipCompas."
     >
 
     <meta name="robots" content="index, follow">
 
-    <link
-        rel="canonical"
-        href="https://flipcompas.github.io/FlipCompas/"
-    >
-
-    <meta name="theme-color" content="#ffffff">
-
-    <meta property="og:title" content="FlipCompas – Woning Flip Calculator">
-    <meta
-        property="og:description"
-        content="Bereken eenvoudig de verwachte investering, winst en FlipScore van een woning."
-    >
-    <meta
-        property="og:url"
-        content="https://flipcompas.github.io/FlipCompas/"
-    >
-    <meta property="og:type" content="website">
-
-    <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "WebApplication",
-        "name": "FlipCompas",
-        "url": "https://flipcompas.github.io/FlipCompas/",
-        "description": "Online calculator voor het berekenen van de investering, verwachte winst en FlipScore van een woning.",
-        "applicationCategory": "FinanceApplication",
-        "operatingSystem": "Web",
-        "inLanguage": "nl"
-    }
-    </script>
+    <link rel="canonical" href="https://flipcompas.github.io/FlipCompas/">
 
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-    <div class="container">
+<div class="container">
 
-        <div class="logo">
-            🏠
-        </div>
+    <!-- HEADER -->
 
-        <h1>FlipCompas</h1>
+    <div class="logo">
+        🏠
+    </div>
 
-        <p class="subtitle">
-            Bereken eenvoudig of een woning financieel interessant is.
-        </p>
+    <h1>FlipCompas</h1>
 
-        <label for="minWinst">Minimale gewenste winst (€)</label>
+    <p class="subtitle">
+        Bereken snel of een woning financieel interessant is om te kopen,
+        verbouwen en verkopen.
+    </p>
+
+
+    <!-- =========================
+         DOEL
+         ========================= -->
+
+    <section class="sectie">
+
+        <h2>🎯 Jouw doel</h2>
+
+        <label for="minWinst">
+            Minimale gewenste winst (€)
+        </label>
+
         <input
             type="number"
             id="minWinst"
             value="15000"
             min="0"
+            step="500"
+            inputmode="decimal"
         >
 
-        <label for="aankoop">Aankoopprijs (€)</label>
+    </section>
+
+
+    <!-- =========================
+         AANKOOP
+         ========================= -->
+
+    <section class="sectie">
+
+        <h2>🏠 Aankoop</h2>
+
+        <label for="aankoop">
+            Aankoopprijs (€)
+        </label>
+
         <input
             type="number"
             id="aankoop"
             placeholder="Bijv. 175000"
             min="0"
+            step="1000"
+            inputmode="decimal"
         >
 
-        <label for="verbouw">Verbouwkosten (€)</label>
+
+        <label for="overdracht">
+            Overdrachtsbelasting (%)
+        </label>
+
+        <input
+            type="number"
+            id="overdracht"
+            value="8"
+            min="0"
+            max="100"
+            step="0.1"
+            inputmode="decimal"
+        >
+
+        <p class="uitleg">
+            Voor een woning waarin je niet zelf langdurig gaat wonen,
+            is het standaardtarief in 2026 8%.
+        </p>
+
+
+        <label for="notaris">
+            Notaris / Kadaster (€)
+        </label>
+
+        <input
+            type="number"
+            id="notaris"
+            value="1300"
+            min="0"
+            step="100"
+            inputmode="decimal"
+        >
+
+    </section>
+
+
+    <!-- =========================
+         VERBOUWING
+         ========================= -->
+
+    <section class="sectie">
+
+        <h2>🔨 Verbouwing</h2>
+
+        <label for="verbouw">
+            Verwachte verbouwkosten (€)
+        </label>
+
         <input
             type="number"
             id="verbouw"
             placeholder="Bijv. 35000"
             min="0"
+            step="1000"
+            inputmode="decimal"
         >
 
-        <label for="verkoop">Verwachte verkoopprijs (€)</label>
+
+        <label for="onvoorzien">
+            Reserve onvoorziene kosten (%)
+        </label>
+
+        <input
+            type="number"
+            id="onvoorzien"
+            value="10"
+            min="0"
+            max="100"
+            step="1"
+            inputmode="decimal"
+        >
+
+        <p class="uitleg">
+            Deze reserve wordt bovenop je geplande verbouwbudget gezet.
+        </p>
+
+    </section>
+
+
+    <!-- =========================
+         VERKOOP
+         ========================= -->
+
+    <section class="sectie">
+
+        <h2>💰 Verkoop</h2>
+
+        <label for="verkoop">
+            Verwachte verkoopprijs (€)
+        </label>
+
         <input
             type="number"
             id="verkoop"
             placeholder="Bijv. 265000"
             min="0"
+            step="1000"
+            inputmode="decimal"
         >
 
-        <label for="overdracht">Overdrachtsbelasting (%)</label>
+
+        <label for="makelaar">
+            Verkoopmakelaar (%)
+        </label>
 
         <input
             type="number"
-            id="overdracht"
-            value="2"
+            id="makelaar"
+            value="1"
             min="0"
+            max="20"
             step="0.1"
+            inputmode="decimal"
         >
 
-        <button type="button" onclick="bereken()">
-            📈 Bereken deal
-        </button>
 
-        <div id="resultaat">
-            Vul de gegevens in en bereken je deal.
-        </div>
+        <label for="verkoopOverig">
+            Overige verkoopkosten (€)
+        </label>
 
-        <div class="dashboard">
+        <input
+            type="number"
+            id="verkoopOverig"
+            value="500"
+            min="0"
+            step="100"
+            inputmode="decimal"
+        >
 
-            <div class="kaart">
-                <h3>💰 Totale investering</h3>
-                <p id="investering">€ 0</p>
-            </div>
+    </section>
 
-            <div class="kaart">
-                <h3>📈 Verwachte winst</h3>
-                <p id="winstKaart">€ 0</p>
-            </div>
 
-            <div class="kaart">
-                <h3>⭐ FlipScore</h3>
-                <p id="flipscore">0 / 100</p>
-            </div>
+    <!-- =========================
+         FINANCIERING
+         ========================= -->
 
-        </div>
+    <section class="sectie">
+
+        <h2>🏦 Financiering</h2>
+
+        <label for="financiering">
+            Financiering van aankoopprijs (%)
+        </label>
+
+        <input
+            type="number"
+            id="financiering"
+            value="70"
+            min="0"
+            max="100"
+            step="1"
+            inputmode="decimal"
+        >
+
+        <p class="uitleg">
+            Dit percentage wordt toegepast op de aankoopprijs.
+        </p>
+
+
+        <label for="rente">
+            Rente (% per jaar)
+        </label>
+
+        <input
+            type="number"
+            id="rente"
+            value="7"
+            min="0"
+            max="50"
+            step="0.1"
+            inputmode="decimal"
+        >
+
+
+        <label for="looptijd">
+            Verwachte looptijd (maanden)
+        </label>
+
+        <input
+            type="number"
+            id="looptijd"
+            value="6"
+            min="1"
+            max="120"
+            step="1"
+            inputmode="numeric"
+        >
+
+    </section>
+
+
+    <!-- =========================
+         BEREKEN
+         ========================= -->
+
+    <button
+        type="button"
+        onclick="bereken()"
+    >
+        📈 Bereken mijn deal
+    </button>
+
+
+    <!-- =========================
+         RESULTAAT
+         ========================= -->
+
+    <div id="resultaat">
+
+        Vul de gegevens in en bereken je deal.
 
     </div>
 
-    <script src="script.js"></script>
+
+    <!-- =========================
+         DASHBOARD
+         ========================= -->
+
+    <div class="dashboard">
+
+
+        <div class="kaart">
+
+            <h3>💰 Totale projectkosten</h3>
+
+            <p id="investering">
+                € 0
+            </p>
+
+        </div>
+
+
+        <div class="kaart">
+
+            <h3>🏦 Financieringskosten</h3>
+
+            <p id="financieringsKosten">
+                € 0
+            </p>
+
+        </div>
+
+
+        <div class="kaart">
+
+            <h3>💵 Eigen geld nodig</h3>
+
+            <p id="eigenGeld">
+                € 0
+            </p>
+
+        </div>
+
+
+        <div class="kaart">
+
+            <h3>📈 Netto projectwinst</h3>
+
+            <p id="winstKaart">
+                € 0
+            </p>
+
+        </div>
+
+
+        <div class="kaart">
+
+            <h3>📊 Rendement eigen geld</h3>
+
+            <p id="rendement">
+                0%
+            </p>
+
+        </div>
+
+
+        <div class="kaart">
+
+            <h3>📅 Winst per maand</h3>
+
+            <p id="winstPerMaand">
+                € 0
+            </p>
+
+        </div>
+
+
+        <div class="kaart kaart-score">
+
+            <h3>⭐ FlipScore</h3>
+
+            <p id="flipscore">
+                0 / 100
+            </p>
+
+        </div>
+
+
+    </div>
+
+</div>
+
+
+<script src="script.js"></script>
 
 </body>
 
