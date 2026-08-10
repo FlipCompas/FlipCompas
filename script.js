@@ -1,9 +1,19 @@
-// Zet Nederlandse bedragen om naar echte getallen.
-// Zowel 175000 als 175.000 wordt 175000.
-function leesBedrag(id) {
-    let waarde = document.getElementById(id).value.trim();
+// FlipCompas - Deal Calculator
 
-    // Verwijder eurotekens, spaties en punten (duizendtallen)
+// Zet een bedrag om naar een getal.
+// Werkt met bijvoorbeeld:
+// 175000
+// 175.000
+// 175.000,50
+function leesBedrag(id) {
+    const element = document.getElementById(id);
+
+    if (!element) {
+        return NaN;
+    }
+
+    let waarde = element.value.trim();
+
     waarde = waarde
         .replace(/€/g, "")
         .replace(/\s/g, "")
@@ -13,29 +23,36 @@ function leesBedrag(id) {
     return Number(waarde);
 }
 
+
+// Hoofdberekening
 function bereken() {
 
+    // Gegevens uit de invoervelden
     const minWinst = leesBedrag("minWinst");
     const aankoop = leesBedrag("aankoop");
     const verbouw = leesBedrag("verbouw");
     const verkoop = leesBedrag("verkoop");
-const overdracht = leesBedrag("overdracht");
+    const overdracht = leesBedrag("overdracht");
+
+    // Onderdelen van de pagina
     const resultaat = document.getElementById("resultaat");
     const investeringElement = document.getElementById("investering");
     const winstElement = document.getElementById("winstKaart");
     const scoreElement = document.getElementById("flipscore");
     const knop = document.querySelector("button");
 
-    // Controleer of de bedragen correct zijn ingevuld
+    // Controle
     if (
+        !Number.isFinite(minWinst) ||
         !Number.isFinite(aankoop) ||
         !Number.isFinite(verbouw) ||
         !Number.isFinite(verkoop) ||
-        !Number.isFinite(minWinst) ||
+        !Number.isFinite(overdracht) ||
+        minWinst < 0 ||
         aankoop <= 0 ||
         verbouw < 0 ||
         verkoop <= 0 ||
-        minWinst <= 0
+        overdracht < 0
     ) {
 
         resultaat.style.background = "#fff5e6";
@@ -54,22 +71,48 @@ const overdracht = leesBedrag("overdracht");
         return;
     }
 
-    // Berekeningen
-    const overdrachtsbelasting = aankoop * (overdracht / 100);
-const investering = aankoop + verbouw + overdrachtsbelasting;
-    const winst = verkoop - investering;
 
-    // Dashboard bijwerken
+    // =========================
+    // BEREKENINGEN
+    // =========================
+
+    // Overdrachtsbelasting
+    const overdrachtsbelasting =
+        aankoop * (overdracht / 100);
+
+    // Totale investering
+    const investering =
+        aankoop +
+        verbouw +
+        overdrachtsbelasting;
+
+    // Verwachte winst
+    const winst =
+        verkoop -
+        investering;
+
+
+    // =========================
+    // DASHBOARD
+    // =========================
+
     investeringElement.innerHTML =
         "€ " + investering.toLocaleString("nl-NL");
 
     winstElement.innerHTML =
         "€ " + winst.toLocaleString("nl-NL");
 
-    let score = 0;
 
     // =========================
-    // RODE ZONE - VERLIES
+    // FLIPSCORE
+    // =========================
+
+    let score = 0;
+
+
+    // =========================
+    // RODE ZONE
+    // VERLIES
     // =========================
 
     if (winst < 0) {
@@ -94,8 +137,10 @@ const investering = aankoop + verbouw + overdrachtsbelasting;
             "Deze investering lijkt op basis van de ingevulde cijfers verliesgevend.";
     }
 
+
     // =========================
-    // ORANJE ZONE - LAGE MARGE
+    // ORANJE ZONE
+    // LAGE WINSTMARGE
     // =========================
 
     else if (winst < minWinst) {
@@ -122,8 +167,10 @@ const investering = aankoop + verbouw + overdrachtsbelasting;
             " is nog niet behaald.";
     }
 
+
     // =========================
-    // GROENE ZONE - GOEDE DEAL
+    // GROENE ZONE
+    // GOEDE DEAL
     // =========================
 
     else {
@@ -150,6 +197,8 @@ const investering = aankoop + verbouw + overdrachtsbelasting;
             " is behaald.";
     }
 
+
+    // Score tonen
     scoreElement.innerHTML =
         score + " / 100";
 }
