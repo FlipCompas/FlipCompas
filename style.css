@@ -587,3 +587,10 @@ button:active {
             repeat(4, 1fr);
     }
 }
+/* =========================
+   VOORBEELDWAARDEN
+   ========================= */
+
+.voorbeeld-waarde {
+    color: #aeb5bf;
+}
