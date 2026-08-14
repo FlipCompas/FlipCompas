@@ -3,7 +3,11 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
     <title>FlipCompas – Woning Flip Calculator</title>
 
@@ -12,41 +16,64 @@
         content="Bereken eenvoudig of een woning financieel interessant is om te verbouwen en door te verkopen."
     >
 
-    <meta name="robots" content="index, follow">
+    <meta
+        name="robots"
+        content="index, follow"
+    >
 
     <link
         rel="canonical"
         href="https://flipcompas.github.io/FlipCompas/"
     >
 
-    <meta name="theme-color" content="#ffffff">
+    <meta
+        name="theme-color"
+        content="#f4f7f5"
+    >
 
-    <link rel="stylesheet" href="style.css">
+    <!-- CSS -->
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
 </head>
+
 
 <body>
 
 <div class="container">
 
-    <!-- LOGO -->
+
+    <!-- =========================
+         LOGO
+    ========================== -->
+
     <div class="logo">
         🏠
     </div>
 
 
-    <!-- TITEL -->
-    <h1>FlipCompas</h1>
+    <!-- =========================
+         TITEL
+    ========================== -->
+
+    <h1>
+        FlipCompas
+    </h1>
 
     <p class="subtitle">
         Bereken eenvoudig of een woning financieel interessant is.
     </p>
 
 
+
     <!-- =========================
          WONING
     ========================== -->
 
-    <h2>🏠 Woning</h2>
+    <h2>
+        🏠 Woning
+    </h2>
 
 
     <label for="aankoop">
@@ -62,12 +89,25 @@
     >
 
 
+
     <label for="overdracht">
-        Overdrachtsbelasting
-        <span id="overdrachtBedrag">→ € 0</span>
+
+        <span>
+            Overdrachtsbelasting
+        </span>
+
+        <span
+            id="overdrachtBedrag"
+            class="berekend-bedrag"
+        >
+            → € 0
+        </span>
+
     </label>
 
+
     <div class="percentage-input">
+
         <input
             type="number"
             id="overdracht"
@@ -75,12 +115,27 @@
             min="0"
             step="0.1"
         >
-        <span>%</span>
+
+        <span class="percentage-teken">
+            %
+        </span>
+
     </div>
 
 
+
     <label for="notaris">
-        Notaris en aankoopkosten (€)
+
+        <span>
+            Notaris en aankoopkosten (€)
+        </span>
+
+        <span
+            id="notarisLabel"
+            class="belangrijk-label"
+        >
+        </span>
+
     </label>
 
     <input
@@ -92,11 +147,14 @@
     >
 
 
+
     <!-- =========================
          VERBOUWING
     ========================== -->
 
-    <h2>🔨 Verbouwing</h2>
+    <h2>
+        🔨 Verbouwing
+    </h2>
 
 
     <label for="verbouw">
@@ -112,12 +170,25 @@
     >
 
 
+
     <label for="onvoorzien">
-        Onvoorzien
-        <span id="onvoorzienBedrag">→ € 0</span>
+
+        <span>
+            Onvoorzien
+        </span>
+
+        <span
+            id="onvoorzienBedrag"
+            class="berekend-bedrag"
+        >
+            → € 0
+        </span>
+
     </label>
 
+
     <div class="percentage-input">
+
         <input
             type="number"
             id="onvoorzien"
@@ -125,15 +196,22 @@
             min="0"
             step="1"
         >
-        <span>%</span>
+
+        <span class="percentage-teken">
+            %
+        </span>
+
     </div>
+
 
 
     <!-- =========================
          VERKOOP
     ========================== -->
 
-    <h2>💰 Verkoop</h2>
+    <h2>
+        💰 Verkoop
+    </h2>
 
 
     <label for="verkoop">
@@ -149,12 +227,25 @@
     >
 
 
+
     <label for="makelaar">
-        Makelaarskosten
-        <span id="makelaarBedrag">→ € 0</span>
+
+        <span>
+            Makelaarskosten
+        </span>
+
+        <span
+            id="makelaarBedrag"
+            class="berekend-bedrag"
+        >
+            → € 0
+        </span>
+
     </label>
 
+
     <div class="percentage-input">
+
         <input
             type="number"
             id="makelaar"
@@ -162,8 +253,13 @@
             min="0"
             step="0.1"
         >
-        <span>%</span>
+
+        <span class="percentage-teken">
+            %
+        </span>
+
     </div>
+
 
 
     <label for="verkoopOverig">
@@ -179,18 +275,23 @@
     >
 
 
+
     <!-- =========================
          FINANCIERING
     ========================== -->
 
-    <h2>🏦 Financiering</h2>
+    <h2>
+        🏦 Financiering
+    </h2>
 
 
     <label for="financieringsPercentage">
         Financiering van totale investering
     </label>
 
+
     <div class="percentage-input">
+
         <input
             type="number"
             id="financieringsPercentage"
@@ -199,14 +300,19 @@
             max="100"
             step="1"
         >
-        <span>%</span>
+
+        <span class="percentage-teken">
+            %
+        </span>
+
     </div>
 
 
-    <p>
+    <p class="uitleg">
         Bijvoorbeeld 70% betekent dat 70% van de totale investering
         wordt gefinancierd.
     </p>
+
 
 
     <label for="hypotheek">
@@ -222,12 +328,25 @@
     >
 
 
+
     <label for="rente">
-        Rente
-        <span id="renteBedrag">→ € 0</span>
+
+        <span>
+            Rente
+        </span>
+
+        <span
+            id="renteBedrag"
+            class="berekend-bedrag"
+        >
+            → € 0
+        </span>
+
     </label>
 
+
     <div class="percentage-input">
+
         <input
             type="number"
             id="rente"
@@ -235,8 +354,13 @@
             min="0"
             step="0.1"
         >
-        <span>% per jaar</span>
+
+        <span class="percentage-teken">
+            % per jaar
+        </span>
+
     </div>
+
 
 
     <label for="looptijd">
@@ -252,11 +376,14 @@
     >
 
 
+
     <!-- =========================
          JOUW DOEL
     ========================== -->
 
-    <h2>🎯 Jouw doel</h2>
+    <h2>
+        🎯 Jouw doel
+    </h2>
 
 
     <label for="minWinst">
@@ -272,6 +399,7 @@
     >
 
 
+
     <!-- =========================
          BEREKENEN
     ========================== -->
@@ -284,6 +412,7 @@
     </button>
 
 
+
     <!-- =========================
          RESULTAAT
     ========================== -->
@@ -291,6 +420,7 @@
     <div id="resultaat">
         Vul de gegevens in en bereken je deal.
     </div>
+
 
 
     <!-- =========================
@@ -302,7 +432,9 @@
 
         <div class="kaart">
 
-            <h3>💰 Totale investering</h3>
+            <h3>
+                💰 Totale investering
+            </h3>
 
             <p id="investering">
                 € 0
@@ -311,9 +443,12 @@
         </div>
 
 
+
         <div class="kaart">
 
-            <h3>🏦 Werkelijke lening</h3>
+            <h3>
+                🏦 Werkelijke lening
+            </h3>
 
             <p id="werkelijkeLening">
                 € 0
@@ -322,9 +457,12 @@
         </div>
 
 
+
         <div class="kaart">
 
-            <h3>💵 Eigen geld nodig</h3>
+            <h3>
+                💵 Eigen geld nodig
+            </h3>
 
             <p id="eigenGeld">
                 € 0
@@ -333,9 +471,12 @@
         </div>
 
 
+
         <div class="kaart">
 
-            <h3>💸 Financieringskosten</h3>
+            <h3>
+                💸 Financieringskosten
+            </h3>
 
             <p id="financieringsKosten">
                 € 0
@@ -344,9 +485,12 @@
         </div>
 
 
+
         <div class="kaart">
 
-            <h3>📈 Netto projectwinst</h3>
+            <h3>
+                📈 Netto projectwinst
+            </h3>
 
             <p id="winstKaart">
                 € 0
@@ -355,9 +499,12 @@
         </div>
 
 
+
         <div class="kaart">
 
-            <h3>📊 Rendement eigen geld</h3>
+            <h3>
+                📊 Rendement eigen geld
+            </h3>
 
             <p id="rendement">
                 0%
@@ -366,9 +513,12 @@
         </div>
 
 
+
         <div class="kaart">
 
-            <h3>📅 Winst per maand</h3>
+            <h3>
+                📅 Winst per maand
+            </h3>
 
             <p id="winstPerMaand">
                 € 0
@@ -377,9 +527,12 @@
         </div>
 
 
+
         <div class="kaart">
 
-            <h3>⭐ FlipScore</h3>
+            <h3>
+                ⭐ FlipScore
+            </h3>
 
             <p id="flipscore">
                 0 / 100
@@ -392,6 +545,10 @@
 
 </div>
 
+
+<!-- =========================
+     JAVASCRIPT
+========================== -->
 
 <script src="script.js"></script>
 
