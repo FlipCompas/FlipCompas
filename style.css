@@ -25,3 +25,10 @@
 
     pointer-events: none;
 }
+/* Belangrijke kostenposten extra benadrukken */
+
+label[for="notaris"],
+label[for="onvoorzien"],
+label[for="makelaar"] {
+    font-weight: 850;
+}
