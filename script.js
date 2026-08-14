@@ -4,7 +4,7 @@
 
 
 // ==========================================
-// BEDRAGEN / GETALLEN UITLEZEN
+// BEDRAG / GETAL UITLEZEN
 // ==========================================
 
 function leesBedrag(id) {
@@ -23,7 +23,6 @@ function leesBedrag(id) {
         return 0;
     }
 
-    // Nederlandse schrijfwijze ondersteunen
     waarde = waarde
         .replace(/€/g, "")
         .replace(/\s/g, "")
@@ -54,50 +53,21 @@ function euro(bedrag) {
 
 function bereken() {
 
-
-    // ======================================
     // WONING
-    // ======================================
+    const aankoop = leesBedrag("aankoop");
+    const overdracht = leesBedrag("overdracht");
+    const notaris = leesBedrag("notaris");
 
-    const aankoop =
-        leesBedrag("aankoop");
-
-    const overdracht =
-        leesBedrag("overdracht");
-
-    const notaris =
-        leesBedrag("notaris");
-
-
-    // ======================================
     // VERBOUWING
-    // ======================================
+    const verbouw = leesBedrag("verbouw");
+    const onvoorzien = leesBedrag("onvoorzien");
 
-    const verbouw =
-        leesBedrag("verbouw");
-
-    const onvoorzien =
-        leesBedrag("onvoorzien");
-
-
-    // ======================================
     // VERKOOP
-    // ======================================
+    const verkoop = leesBedrag("verkoop");
+    const makelaar = leesBedrag("makelaar");
+    const verkoopOverig = leesBedrag("verkoopOverig");
 
-    const verkoop =
-        leesBedrag("verkoop");
-
-    const makelaar =
-        leesBedrag("makelaar");
-
-    const verkoopOverig =
-        leesBedrag("verkoopOverig");
-
-
-    // ======================================
     // FINANCIERING
-    // ======================================
-
     const financieringsPercentage =
         leesBedrag("financieringsPercentage");
 
@@ -110,42 +80,26 @@ function bereken() {
     const looptijd =
         leesBedrag("looptijd");
 
-
-    // ======================================
     // DOEL
-    // ======================================
-
     const minWinst =
         leesBedrag("minWinst");
 
 
     // ======================================
-    // AANKOOPKOSTEN
+    // BEREKENINGEN
     // ======================================
 
     const overdrachtsbelasting =
         aankoop * (overdracht / 100);
 
-
-    // ======================================
-    // ONVOORZIEN
-    // ======================================
-
     const onvoorzienKosten =
         verbouw * (onvoorzien / 100);
-
-
-    // ======================================
-    // MAKELAAR
-    // ======================================
 
     const makelaarsKosten =
         verkoop * (makelaar / 100);
 
 
-    // ======================================
     // TOTALE INVESTERING
-    // ======================================
 
     const totaleInvestering =
         aankoop +
@@ -155,18 +109,14 @@ function bereken() {
         onvoorzienKosten;
 
 
-    // ======================================
-    // GEWENSTE FINANCIERING
-    // ======================================
+    // GEWENSTE LENING
 
     const gewensteLening =
         totaleInvestering *
         (financieringsPercentage / 100);
 
 
-    // ======================================
     // WERKELIJKE LENING
-    // ======================================
 
     let werkelijkeLening =
         Math.min(
@@ -174,15 +124,12 @@ function bereken() {
             maximaleHypotheek
         );
 
-
     if (werkelijkeLening < 0) {
         werkelijkeLening = 0;
     }
 
 
-    // ======================================
-    // FINANCIERINGSKOSTEN
-    // ======================================
+    // RENTE
 
     const financieringsKosten =
         werkelijkeLening *
@@ -190,18 +137,14 @@ function bereken() {
         (looptijd / 12);
 
 
-    // ======================================
     // VERKOOPKOSTEN
-    // ======================================
 
     const totaleVerkoopkosten =
         makelaarsKosten +
         verkoopOverig;
 
 
-    // ======================================
     // TOTALE PROJECTKOSTEN
-    // ======================================
 
     const totaleProjectKosten =
         totaleInvestering +
@@ -209,33 +152,26 @@ function bereken() {
         totaleVerkoopkosten;
 
 
-    // ======================================
     // EIGEN GELD
-    // ======================================
 
     let eigenGeld =
         totaleInvestering +
         financieringsKosten -
         werkelijkeLening;
 
-
     if (eigenGeld < 0) {
         eigenGeld = 0;
     }
 
 
-    // ======================================
-    // NETTO PROJECTWINST
-    // ======================================
+    // WINST
 
     const winst =
         verkoop -
         totaleProjectKosten;
 
 
-    // ======================================
     // RENDEMENT
-    // ======================================
 
     let rendement = 0;
 
@@ -247,9 +183,7 @@ function bereken() {
     }
 
 
-    // ======================================
     // WINST PER MAAND
-    // ======================================
 
     let winstPerMaand = 0;
 
@@ -309,36 +243,33 @@ function bereken() {
 
 
     // ======================================
-    // BEDRAGEN BIJ DE INPUTS
+    // BEREKENDE BEDRAGEN
     // ======================================
 
     if (overdrachtBedragElement) {
 
-        overdrachtBedragElement.innerHTML =
+        overdrachtBedragElement.textContent =
             "→ " + euro(overdrachtsbelasting);
 
     }
 
-
     if (onvoorzienBedragElement) {
 
-        onvoorzienBedragElement.innerHTML =
+        onvoorzienBedragElement.textContent =
             "→ " + euro(onvoorzienKosten);
 
     }
 
-
     if (makelaarBedragElement) {
 
-        makelaarBedragElement.innerHTML =
+        makelaarBedragElement.textContent =
             "→ " + euro(makelaarsKosten);
 
     }
 
-
     if (renteBedragElement) {
 
-        renteBedragElement.innerHTML =
+        renteBedragElement.textContent =
             "→ " + euro(financieringsKosten);
 
     }
@@ -362,7 +293,7 @@ function bereken() {
 
         if (uitleg) {
 
-            uitleg.innerHTML =
+            uitleg.textContent =
                 "Bijvoorbeeld " +
                 financieringsPercentage +
                 "% betekent dat " +
@@ -370,7 +301,6 @@ function bereken() {
                 "% van de totale investering wordt gefinancierd.";
 
         }
-
     }
 
 
@@ -380,47 +310,42 @@ function bereken() {
 
     if (investeringElement) {
 
-        investeringElement.innerHTML =
+        investeringElement.textContent =
             euro(totaleInvestering);
 
     }
 
-
     if (werkelijkeLeningElement) {
 
-        werkelijkeLeningElement.innerHTML =
+        werkelijkeLeningElement.textContent =
             euro(werkelijkeLening);
 
     }
 
-
     if (eigenGeldElement) {
 
-        eigenGeldElement.innerHTML =
+        eigenGeldElement.textContent =
             euro(eigenGeld);
 
     }
 
-
     if (financieringsKostenElement) {
 
-        financieringsKostenElement.innerHTML =
+        financieringsKostenElement.textContent =
             euro(financieringsKosten);
 
     }
 
-
     if (winstElement) {
 
-        winstElement.innerHTML =
+        winstElement.textContent =
             euro(winst);
 
     }
 
-
     if (rendementElement) {
 
-        rendementElement.innerHTML =
+        rendementElement.textContent =
             rendement.toLocaleString(
                 "nl-NL",
                 {
@@ -431,10 +356,9 @@ function bereken() {
 
     }
 
-
     if (winstPerMaandElement) {
 
-        winstPerMaandElement.innerHTML =
+        winstPerMaandElement.textContent =
             euro(winstPerMaand);
 
     }
@@ -446,52 +370,35 @@ function bereken() {
 
     let score = 0;
 
-
     if (winst <= 0) {
 
         score = 20;
 
-    }
-
-    else if (winst < minWinst) {
+    } else if (winst < minWinst) {
 
         score = 60;
 
-    }
-
-    else {
+    } else {
 
         score = 90;
 
     }
 
-
-    // Extra punten voor rendement
-
     if (rendement >= 30 && winst > 0) {
-
         score += 5;
-
     }
-
 
     if (rendement >= 40 && winst > 0) {
-
         score += 5;
-
     }
-
 
     if (score > 100) {
-
         score = 100;
-
     }
-
 
     if (scoreElement) {
 
-        scoreElement.innerHTML =
+        scoreElement.textContent =
             score + " / 100";
 
     }
@@ -501,116 +408,62 @@ function bereken() {
     // RESULTAAT
     // ======================================
 
-    if (!resultaat) {
-        return;
-    }
-
-
     if (winst < 0) {
 
-
         if (knop) {
-            knop.style.background =
-                "#d62828";
+            knop.style.background = "#d62828";
         }
 
-
-        resultaat.style.background =
-            "#ffe9e9";
-
-        resultaat.style.border =
-            "2px solid #d62828";
-
-        resultaat.style.color =
-            "#d62828";
-
+        resultaat.style.background = "#ffe9e9";
+        resultaat.style.border = "2px solid #d62828";
+        resultaat.style.color = "#d62828";
 
         resultaat.innerHTML =
-
             "🚨 <strong>GEEN GOEDE DEAL</strong><br><br>" +
-
             "Geschat netto verlies:<br>" +
-
             "<strong>" +
             euro(Math.abs(winst)) +
             "</strong><br><br>" +
-
             "Op basis van de ingevulde cijfers lijkt deze flip verliesgevend.";
 
-    }
-
-
-    else if (winst < minWinst) {
-
+    } else if (winst < minWinst) {
 
         if (knop) {
-            knop.style.background =
-                "#f4a261";
+            knop.style.background = "#f4a261";
         }
 
-
-        resultaat.style.background =
-            "#fff5e6";
-
-        resultaat.style.border =
-            "2px solid #f4a261";
-
-        resultaat.style.color =
-            "#c97a00";
-
+        resultaat.style.background = "#fff5e6";
+        resultaat.style.border = "2px solid #f4a261";
+        resultaat.style.color = "#c97a00";
 
         resultaat.innerHTML =
-
             "⚠️ <strong>LAGE WINSTMARGE</strong><br><br>" +
-
             "Geschatte netto winst:<br>" +
-
             "<strong>" +
             euro(winst) +
             "</strong><br><br>" +
-
             "Je minimale winstdoel van " +
-
             euro(minWinst) +
-
             " is nog niet behaald.";
 
-    }
-
-
-    else {
-
+    } else {
 
         if (knop) {
-            knop.style.background =
-                "#1b8d43";
+            knop.style.background = "#1b8d43";
         }
 
-
-        resultaat.style.background =
-            "#e8f9ee";
-
-        resultaat.style.border =
-            "2px solid #1b8d43";
-
-        resultaat.style.color =
-            "#1b8d43";
-
+        resultaat.style.background = "#e8f9ee";
+        resultaat.style.border = "2px solid #1b8d43";
+        resultaat.style.color = "#1b8d43";
 
         resultaat.innerHTML =
-
             "✅ <strong>GOEDE DEAL</strong><br><br>" +
-
             "Geschatte netto winst:<br>" +
-
             "<strong>" +
             euro(winst) +
             "</strong><br><br>" +
-
             "Je minimale winstdoel van " +
-
             euro(minWinst) +
-
             " is behaald.";
 
     }
@@ -622,40 +475,31 @@ function bereken() {
 
     let kleur;
 
-
     if (winst < 0) {
 
         kleur = "#d62828";
 
-    }
-
-    else if (winst < minWinst) {
+    } else if (winst < minWinst) {
 
         kleur = "#c97a00";
 
-    }
-
-    else {
+    } else {
 
         kleur = "#1b8d43";
 
     }
 
-
     if (winstElement) {
         winstElement.style.color = kleur;
     }
-
 
     if (rendementElement) {
         rendementElement.style.color = kleur;
     }
 
-
     if (winstPerMaandElement) {
         winstPerMaandElement.style.color = kleur;
     }
-
 
     if (scoreElement) {
         scoreElement.style.color = kleur;
@@ -665,35 +509,73 @@ function bereken() {
 
 
 // ==========================================
-// AUTOMATISCH HERBEREKENEN
+// START
 // ==========================================
 
 document.addEventListener(
     "DOMContentLoaded",
     function () {
 
-
         const velden =
             document.querySelectorAll("input");
 
 
-        velden.forEach(
-            function (veld) {
-
-                veld.addEventListener(
-                    "input",
-                    function () {
-
-                        bereken();
-
-                    }
-                );
-
-            }
-        );
+        velden.forEach(function (veld) {
 
 
-        // Meteen berekenen bij openen
+            // ------------------------------
+            // VOORBEELDWAARDE LICHT MAKEN
+            // ------------------------------
+
+            veld.classList.add(
+                "voorbeeld-waarde"
+            );
+
+
+            // ------------------------------
+            // BIJ TYPEN NORMALE TEKST
+            // ------------------------------
+
+            veld.addEventListener(
+                "input",
+                function () {
+
+                    veld.classList.remove(
+                        "voorbeeld-waarde"
+                    );
+
+                    bereken();
+
+                }
+            );
+
+
+            // ------------------------------
+            // HELE WAARDE SELECTEREN
+            // ------------------------------
+
+            veld.addEventListener(
+                "focus",
+                function () {
+
+                    setTimeout(
+                        function () {
+
+                            veld.select();
+
+                        },
+                        50
+                    );
+
+                }
+            );
+
+        });
+
+
+        // ------------------------------
+        // DIRECT BEREKENEN
+        // ------------------------------
 
         bereken();
 
